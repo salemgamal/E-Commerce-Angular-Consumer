@@ -1,0 +1,31 @@
+<form [formGroup]="paymentform">
+    <div class="row p-2">
+        <div class="form-group col-12">
+            <input [class.is-valid]="paymentform.valid && paymentform.untouched"
+                [class.is-invalid]="paymentform.invalid && paymentform.touched" type="text" formControlName="nameOnCard"
+                placeholder="name On Card" class="form-control  py-3">
+            @if(cardErrors){
+            <p class="text-danger">{{cardErrors}}</p>
+            }
+        </div>
+        <div class="form-group col-4 p-2">
+            <div #cardNumber class="form-control py-3"></div>
+        </div>
+        <div class="form-group col-4 p-2">
+            <div #cardExpiry class="form-control py-3"></div>
+        </div>
+        <div class="form-group col-4 p-2">
+            <div #cardCvc class="form-control py-3"></div>
+        </div>
+    </div>
+
+</form>
+
+
+<button mat-raised-button matStepperPrevious> back</button>
+<button [disabled]="cardErrors!=null" mat-raised-button (click)="SubmetOrder()"> Payment
+    <i class="fa fa-cc-stripe text-info"></i></button>
+@if (loader==true) {
+
+<i class="fa fa-spinner fa-spin text-danger"></i>
+}

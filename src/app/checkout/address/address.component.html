@@ -1,0 +1,40 @@
+<div class="d-flex justify-content-between ">
+    <button [disabled]="canEdit==false" mat-raised-button (click)="UpdateAddress()">Save Change Address</button>
+    <button class="btn" (click)="canEdit=!canEdit"
+        [ngClass]="{'btn-success':canEdit===true,'btn-danger':canEdit===false}">{{!canEdit?'Edit-disabled':'Edit-Enabled'}}</button>
+</div>
+<form [formGroup]="address">
+    <mat-form-field>
+        <mat-label>First Name</mat-label>
+        <input matInput placeholder="First name" [readonly]="!canEdit" formControlName="firstName" required>
+    </mat-form-field>
+
+    <mat-form-field>
+        <mat-label>Last Name</mat-label>
+        <input matInput placeholder="Last name" [readonly]="!canEdit" formControlName="lastName" required>
+    </mat-form-field>
+
+    <mat-form-field>
+        <mat-label>street</mat-label>
+        <input matInput placeholder="street" [readonly]="!canEdit" formControlName="street" required>
+    </mat-form-field>
+
+    <mat-form-field>
+        <mat-label>city</mat-label>
+        <input matInput placeholder="city" [readonly]="!canEdit" formControlName="city" required>
+    </mat-form-field>
+
+    <mat-form-field>
+        <mat-label>zipCode</mat-label>
+        <input matInput placeholder="zipCode" [readonly]="!canEdit" formControlName="zipCode" required>
+    </mat-form-field>
+
+    <mat-form-field>
+        <mat-label>State</mat-label>
+        <input matInput placeholder="State" [readonly]="!canEdit" formControlName="state" required>
+    </mat-form-field>
+
+    <div>
+        <button mat-button matStepperNext>Next</button>
+    </div>
+</form>

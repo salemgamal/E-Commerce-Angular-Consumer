@@ -1,0 +1,51 @@
+<div class="card h-100 shadow-sm">
+    @if (Product.photos && Product.photos.length > 0 && Product.photos[0].imageName) {
+        <img [src]="'https://localhost:7182/' + Product.photos[0].imageName" class="card-img-top"
+            [alt]="Product.name">
+    } @else {
+        <img src="assets/images/placeholder.png" class="card-img-top" alt="No image available">
+    }
+    <div class="card-body">
+        @if (Product.photos && Product.photos.length > 1) {
+            <div class="thumbnails mb-3">
+                @for (photo of Product.photos; track $index) {
+                    @if (photo.imageName) {
+                        <img [src]="'https://localhost:7182/' + photo.imageName" [alt]="Product.name"
+                            class="thumbnail-img small-img">
+                    }
+                }
+            </div>
+        }
+        <div class="d-flex justify-content-between align-items-center mb-2">
+            <h5 class="card-title mb-0">{{Product.name}}</h5>
+            <span class="badge bg-primary">{{Product.categoryName}}</span>
+        </div>
+        <p class="card-text text-muted">{{Product.description}}</p>
+        <div class="d-flex justify-content-between align-items-center mb-2">
+            <div class="price">
+                @if (Product.oldPrice > Product.newPrice) {
+                    <span class="old-price text-muted text-decoration-line-through me-2">{{Product.oldPrice | currency}}</span>
+                }
+                <span class="new-price fw-bold">{{Product.newPrice | currency}}</span>
+            </div>
+            
+        </div>
+        <div class="d-flex justify-content-between gap-2 mt-3">
+            <button routerLink="/shop/product-details/{{Product.id}}" class="btn btn-success flex-grow-1">
+                <i class="fa fa-info-circle me-2"></i>View Details
+            </button>
+            <button class="btn" 
+                    [class.btn-danger]="isInFavorites" 
+                    [class.btn-outline-danger]="!isInFavorites" 
+                    (click)="toggleFavorite()"
+                    [disabled]="isLoading">
+                @if (isLoading) {
+                    <i class="fa fa-spinner fa-spin"></i>
+                } @else {
+                    <i class="fa" [class.fa-heart]="isInFavorites" [class.fa-heart-o]="!isInFavorites"></i>
+                }
+            </button>
+        </div>
+    </div>
+</div>
+   
