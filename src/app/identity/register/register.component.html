@@ -1,88 +1,172 @@
-<section class="pt-5">
-    <div class="form-container">
-        <h2 class="text-center">Register</h2>
+<div class="auth-container">
+    <div class="auth-card">
+        <div class="auth-header">
+            <h2>Create Account</h2>
+            <p>Join us to start shopping</p>
+        </div>
+        
         <form [formGroup]="fromGroup" (ngSubmit)="Submit()">
-            <div class="form-group mb-3">
-                <label for="email">Email</label>
-                <input type="email" id="email" class="form-control" formControlName="email" 
-                    [class.is-valid]="_email.valid"
-                    [class.is-invalid]="_email.invalid && _email.touched">
-                @if (_email.hasError('required')) {
-                    <span class="text-danger">Email is required</span>
-                } @else if (_email.hasError('email')) {
-                    <span class="text-danger">Invalid email format</span>
-                }
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="firstName">First Name</label>
+                        <input 
+                            type="text" 
+                            id="firstName" 
+                            class="form-control" 
+                            formControlName="firstName"
+                            [class.is-valid]="_firstName.valid"
+                            [class.is-invalid]="_firstName.invalid && _firstName.touched"
+                            placeholder="Enter your first name"
+                        >
+                        @if (_firstName.hasError('required') && _firstName.touched) {
+                            <div class="invalid-feedback">First name is required</div>
+                        }
+                    </div>
+                </div>
+                
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="lastName">Last Name</label>
+                        <input 
+                            type="text" 
+                            id="lastName" 
+                            class="form-control" 
+                            formControlName="lastName"
+                            [class.is-valid]="_lastName.valid"
+                            [class.is-invalid]="_lastName.invalid && _lastName.touched"
+                            placeholder="Enter your last name"
+                        >
+                        @if (_lastName.hasError('required') && _lastName.touched) {
+                            <div class="invalid-feedback">Last name is required</div>
+                        }
+                    </div>
+                </div>
             </div>
 
-            <div class="form-group mb-3">
-                <label for="password">Password</label>
-                <input type="password" id="password" class="form-control" formControlName="password"
-                    [class.is-valid]="_password.valid"
-                    [class.is-invalid]="_password.invalid && _password.touched">
-                @if (_password.hasError('required')) {
-                    <span class="text-danger">Password is required</span>
-                }
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input 
+                            type="email" 
+                            id="email" 
+                            class="form-control" 
+                            formControlName="email"
+                            [class.is-valid]="_email.valid"
+                            [class.is-invalid]="_email.invalid && _email.touched"
+                            placeholder="Enter your email address"
+                        >
+                        @if (_email.hasError('required') && _email.touched) {
+                            <div class="invalid-feedback">Email is required</div>
+                        } @else if (_email.hasError('email')) {
+                            <div class="invalid-feedback">Please enter a valid email address</div>
+                        }
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <div class="input-group">
+                            <input 
+                                [type]="showPassword ? 'text' : 'password'" 
+                                id="password" 
+                                class="form-control" 
+                                formControlName="password"
+                                [class.is-valid]="_password.valid"
+                                [class.is-invalid]="_password.invalid && _password.touched"
+                                placeholder="Create a password"
+                            >
+                            <button 
+                                type="button" 
+                                class="password-toggle" 
+                                (click)="togglePasswordVisibility()"
+                            >
+                                <i class="fa" [class.fa-eye]="!showPassword" [class.fa-eye-slash]="showPassword"></i>
+                            </button>
+                        </div>
+                        @if (_password.hasError('required') && _password.touched) {
+                            <div class="invalid-feedback">Password is required</div>
+                        }
+                    </div>
+                </div>
             </div>
 
-            <div class="form-group mb-3">
-                <label for="firstName">First Name</label>
-                <input type="text" id="firstName" class="form-control" formControlName="firstName"
-                    [class.is-valid]="_firstName.valid"
-                    [class.is-invalid]="_firstName.invalid && _firstName.touched">
-                @if (_firstName.hasError('required')) {
-                    <span class="text-danger">First name is required</span>
-                }
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="address">Address</label>
+                        <input 
+                            type="text" 
+                            id="address" 
+                            class="form-control" 
+                            formControlName="address"
+                            [class.is-valid]="_address.valid"
+                            [class.is-invalid]="_address.invalid && _address.touched"
+                            placeholder="Enter your address"
+                        >
+                        @if (_address.hasError('required') && _address.touched) {
+                            <div class="invalid-feedback">Address is required</div>
+                        }
+                    </div>
+                </div>
             </div>
 
-            <div class="form-group mb-3">
-                <label for="lastName">Last Name</label>
-                <input type="text" id="lastName" class="form-control" formControlName="lastName"
-                    [class.is-valid]="_lastName.valid"
-                    [class.is-invalid]="_lastName.invalid && _lastName.touched">
-                @if (_lastName.hasError('required')) {
-                    <span class="text-danger">Last name is required</span>
-                }
-            </div>
-
-            <div class="form-group mb-3">
-                <label for="address">Address</label>
-                <input type="text" id="address" class="form-control" formControlName="address"
-                    [class.is-valid]="_address.valid"
-                    [class.is-invalid]="_address.invalid && _address.touched">
-                @if (_address.hasError('required')) {
-                    <span class="text-danger">Address is required</span>
-                }
-            </div>
-
-            <div class="form-group mb-3">
-                <label for="city">City</label>
-                <input type="text" id="city" class="form-control" formControlName="city"
-                    [class.is-valid]="_city.valid"
-                    [class.is-invalid]="_city.invalid && _city.touched">
-                @if (_city.hasError('required')) {
-                    <span class="text-danger">City is required</span>
-                }
-            </div>
-
-            <div class="form-group mb-3">
-                <label for="country">Country</label>
-                <input type="text" id="country" class="form-control" formControlName="country"
-                    [class.is-valid]="_country.valid"
-                    [class.is-invalid]="_country.invalid && _country.touched">
-                @if (_country.hasError('required')) {
-                    <span class="text-danger">Country is required</span>
-                }
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="city">City</label>
+                        <input 
+                            type="text" 
+                            id="city" 
+                            class="form-control" 
+                            formControlName="city"
+                            [class.is-valid]="_city.valid"
+                            [class.is-invalid]="_city.invalid && _city.touched"
+                            placeholder="Enter your city"
+                        >
+                        @if (_city.hasError('required') && _city.touched) {
+                            <div class="invalid-feedback">City is required</div>
+                        }
+                    </div>
+                </div>
+                
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="country">Country</label>
+                        <input 
+                            type="text" 
+                            id="country" 
+                            class="form-control" 
+                            formControlName="country"
+                            [class.is-valid]="_country.valid"
+                            [class.is-invalid]="_country.invalid && _country.touched"
+                            placeholder="Enter your country"
+                        >
+                        @if (_country.hasError('required') && _country.touched) {
+                            <div class="invalid-feedback">Country is required</div>
+                        }
+                    </div>
+                </div>
             </div>
 
             <div class="form-group mt-4">
-                <button type="submit" class="btn btn-primary w-100" [disabled]="fromGroup.invalid">
-                    Register
+                <button type="submit" class="btn btn-primary w-100" [disabled]="fromGroup.invalid || isSubmitting">
+                    @if (!isSubmitting) {
+                        <span>Create Account <i class="fa fa-user-plus"></i></span>
+                    } @else {
+                        <span>
+                            <i class="fa fa-spinner fa-spin"></i> Creating account...
+                        </span>
+                    }
                 </button>
             </div>
 
-            <div class="form-group mt-3 text-center">
-                <a class="btn btn-link" routerLink="/Account/Login">Already have an account? Login</a>
+            <div class="text-center mt-3">
+                <span class="text-muted">Already have an account?</span>
+                <a class="btn btn-link" routerLink="/account/login">Sign In</a>
             </div>
         </form>
     </div>
-</section>
+</div>

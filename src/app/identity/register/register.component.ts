@@ -13,6 +13,7 @@ import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 export class RegisterComponent implements OnInit {
   fromGroup: FormGroup;
   isSubmitting = false;
+  showPassword = false;
 
   constructor(
     private fb: FormBuilder,
@@ -44,6 +45,10 @@ export class RegisterComponent implements OnInit {
   get _address() { return this.fromGroup.get('address'); }
   get _city() { return this.fromGroup.get('city'); }
   get _country() { return this.fromGroup.get('country'); }
+
+  togglePasswordVisibility() {
+    this.showPassword = !this.showPassword;
+  }
 
   Submit() {
     if (this.fromGroup.valid && !this.isSubmitting) {

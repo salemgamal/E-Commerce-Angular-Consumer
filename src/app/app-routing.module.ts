@@ -1,12 +1,17 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { authGuard } from './guard/auth.guard';
+import { HomeComponent } from './home/home.component';
+import { FavoritesComponent } from './favorites/favorites.component';
 
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'shop',
-    pathMatch: 'full'
+    component: HomeComponent
+  },
+  {
+    path: 'home',
+    component: HomeComponent
   },
   {
     path: 'shop',
@@ -29,6 +34,11 @@ const routes: Routes = [
   {
     path: 'account',
     loadChildren: () => import('./identity/identity.module').then(m => m.IdentityModule)
+  },
+  {
+    path: 'favorites',
+    component: FavoritesComponent,
+    canActivate: [authGuard]
   },
   { path: '**', redirectTo: '', pathMatch: 'full' },
 ];

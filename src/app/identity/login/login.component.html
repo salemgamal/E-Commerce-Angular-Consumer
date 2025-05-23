@@ -1,39 +1,72 @@
-<section class="pt-5">
-    <div class="form-container">
-        <h2 class="text-center">Login</h2>
+<div class="auth-container">
+    <div class="auth-card auth-card-login">
+        <div class="auth-header">
+            <h2>Welcome Back</h2>
+            <p>Sign in to continue shopping</p>
+        </div>
+        
         <form [formGroup]="formGroup" (ngSubmit)="Submit()">
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <div class="input-group">
+                    <input 
+                        type="email" 
+                        id="email"
+                        class="form-control" 
+                        formControlName="email" 
+                        [class.is-valid]="_email.valid"
+                        [class.is-invalid]="_email.invalid && _email.touched"
+                        placeholder="Enter your email"
+                    >
+                </div>
+                @if (_email.hasError('required') && _email.touched) {
+                    <div class="invalid-feedback">Email address is required</div>
+                } @else if (_email.hasError('email')) {
+                    <div class="invalid-feedback">Please enter a valid email address</div>
+                }
+            </div>
 
             <div class="form-group">
-                <label for="email">email</label>
-                <input type="email" class="form-control" formControlName="email" [class.is-valid]="_email.valid"
-                    [class.is-invalid]="_email.invalid&&_email.touched">
-                @if (_email.hasError('required')) {
-                <span class="text-danger">email is required</span>
-                }@else if (_email.hasError('email')) {
-                <span class="text-danger">email format invalid Expample:test&#64;ts.ts</span>
+                <label for="password">Password</label>
+                <div class="input-group">
+                    <input 
+                        [type]="showPassword ? 'text' : 'password'" 
+                        id="password"
+                        class="form-control" 
+                        formControlName="password"
+                        [class.is-valid]="_password.valid"
+                        [class.is-invalid]="_password.invalid && _password.touched"
+                        placeholder="Enter your password"
+                    >
+                    <button 
+                        type="button" 
+                        class="password-toggle" 
+                        (click)="togglePasswordVisibility()"
+                    >
+                        <i class="fa" [class.fa-eye]="!showPassword" [class.fa-eye-slash]="showPassword"></i>
+                    </button>
+                </div>
+                @if (_password.hasError('required') && _password.touched) {
+                    <div class="invalid-feedback">Password is required</div>
                 }
             </div>
+
             <div class="form-group">
-                <label for="password">password</label>
-                <input type="password" class="form-control" formControlName="password"
-                    [class.is-valid]="_password.valid" [class.is-invalid]="_password.invalid&&_password.touched">
-                @if (_password.hasError('required')) {
-                <span class="text-danger">password is required</span>
-                }
-            </div>
-            <div class="form-group">
-                <button class="btn btn-info w-100" [disabled]="formGroup.invalid || isSubmitting">
-                    <span *ngIf="!isSubmitting">Login <i class="fa fa-sign-in"></i></span>
-                    <span *ngIf="isSubmitting">
-                        <i class="fa fa-spinner fa-spin"></i> Logging in...
-                    </span>
+                <button type="submit" class="btn btn-primary w-100" [disabled]="formGroup.invalid || isSubmitting">
+                    @if (!isSubmitting) {
+                        <span>Sign In <i class="fa fa-sign-in"></i></span>
+                    } @else {
+                        <span>
+                            <i class="fa fa-spinner fa-spin"></i> Signing in...
+                        </span>
+                    }
                 </button>
             </div>
-            <div class="form-group pt-3">
-                <div class="d-flex justify-content-center">
-                    <button class="btn btn-danger" routerLink="/account/register">Create account?</button>
-                </div>
+
+            <div class="text-center mt-3">
+                <span class="text-muted">Don't have an account?</span>
+                <a class="btn btn-link" routerLink="/account/register">Create Account</a>
             </div>
         </form>
     </div>
-</section>
+</div>

@@ -1,0 +1,110 @@
+@import '../shop/shop.component.scss';
+
+.favorites-container {
+  min-height: 100vh;
+  background: linear-gradient(135deg, rgba(#f8f9fa, 0.97), rgba(#ecf0f1, 0.95));
+  
+  h2 {
+    color: $primary-color;
+    font-weight: 600;
+    position: relative;
+    
+    &::after {
+      content: '';
+      display: block;
+      width: 50px;
+      height: 3px;
+      background: $accent-color;
+      margin: 10px auto;
+    }
+  }
+
+  .empty-favorites {
+    background: white;
+    border-radius: 10px;
+    padding: 2rem;
+    box-shadow: $box-shadow;
+    
+    i {
+      color: $accent-color;
+    }
+
+    h3 {
+      color: $primary-color;
+      margin-bottom: 1rem;
+    }
+
+    p {
+      color: $secondary-color;
+      margin-bottom: 1.5rem;
+    }
+  }
+
+  .product-card {
+    cursor: pointer;
+    
+    .card-img-top {
+      height: 250px;
+      object-fit: cover;
+      transition: transform 0.3s ease;
+    }
+
+    .card-title {
+      color: $primary-color;
+      font-size: 1.1rem;
+      margin-bottom: 0.5rem;
+      cursor: pointer;
+
+      &:hover {
+        color: $hover-color;
+      }
+    }
+
+    .card-text {
+      color: $secondary-color;
+      font-size: 0.9rem;
+    }
+
+    .price {
+      color: $accent-color;
+      font-weight: 600;
+      font-size: 1.2rem;
+    }
+
+    .btn-danger {
+      opacity: 0.9;
+      transition: opacity 0.3s ease;
+
+      &:hover {
+        opacity: 1;
+      }
+    }
+
+    .btn-outline-primary {
+      border-color: $primary-color;
+      color: $primary-color;
+
+      &:hover {
+        background-color: $primary-color;
+        color: white;
+      }
+
+      i {
+        margin-right: 5px;
+      }
+    }
+  }
+}
+
+// Responsive adjustments
+@media (max-width: 768px) {
+  .favorites-container {
+    padding: 1rem;
+    
+    .product-card {
+      .card-img-top {
+        height: 200px;
+      }
+    }
+  }
+} 

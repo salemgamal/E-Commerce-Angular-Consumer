@@ -16,6 +16,7 @@ export class LoginComponent implements OnInit {
   emailModel: string = '';
   retrunUrl = '/';
   isSubmitting = false;
+  showPassword = false;
 
   constructor(
     private fb: FormBuilder,
@@ -61,6 +62,10 @@ export class LoginComponent implements OnInit {
 
   get _password() {
     return this.formGroup.get('password');
+  }
+
+  togglePasswordVisibility() {
+    this.showPassword = !this.showPassword;
   }
 
   Submit() {

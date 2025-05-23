@@ -1,33 +1,70 @@
-<nav class="navbar navbar-expand-lg navbar-light">
+<nav class="navbar navbar-expand-lg">
   <div class="container">
     <a class="navbar-brand" routerLink="/">
-      <img src="./favicon.ico" alt="Logo" class="logo">
-      &nbsp;
-      <i class="text-white ">E-commerce</i>
+      <i class="fa fa-bolt"></i>
+      <span>Electronics Shop</span>
     </a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav mr-auto">
-        <li class="nav-item"><a routerLink="/" class="nav-link">Home</a></li>
-        <li class="nav-item"><a routerLink="/shop" class="nav-link">Shopping</a></li>
-        <li class="nav-item"><a routerLink="/orders" class="nav-link">Orders</a></li>
-        @if (!userName) {
-          <li class="nav-item"><a routerLink="/account/register" class="nav-link">Register</a></li>
-          <li class="nav-item"><a routerLink="/account/login" class="nav-link">Login</a></li>
+      <ul class="navbar-nav me-auto">
+        <li class="nav-item">
+          <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="nav-link">
+            <i class="fa fa-home"></i> Home
+          </a>
+        </li>
+        <li class="nav-item">
+          <a routerLink="/shop" routerLinkActive="active" class="nav-link">
+            <i class="fa fa-shopping-bag"></i> Shopping
+          </a>
+        </li>
+        <li class="nav-item">
+          <a routerLink="/orders" routerLinkActive="active" class="nav-link">
+            <i class="fa fa-list-alt"></i> Orders
+          </a>
+        </li>
+        @if (userName) {
+          <li class="nav-item">
+            <a routerLink="/favorites" routerLinkActive="active" class="nav-link">
+              <i class="fa fa-heart"></i> Favorites
+            </a>
+          </li>
         }
       </ul>
       
-      <ul class="navbar-nav ml-auto align-items-center">
-        @if (userName) {
+      <ul class="navbar-nav ms-auto">
+        @if (!userName) {
           <li class="nav-item">
-            <span class="nav-link">Welcome, {{userName}}</span>
+            <a routerLink="/account/register" routerLinkActive="active" class="nav-link auth-link">
+              <i class="fa fa-user-plus"></i> Register
+            </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" style="cursor: pointer;" (click)="logout()">
-              <i class="fa fa-sign-out"></i> Logout
+            <a routerLink="/account/login" routerLinkActive="active" class="nav-link auth-link">
+              <i class="fa fa-sign-in"></i> Login
             </a>
+          </li>
+        }
+        @if (userName) {
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle user-menu" role="button" data-bs-toggle="dropdown">
+              <i class="fa fa-user-circle"></i>
+              <span>{{userName}}</span>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end">
+              <li>
+                <a class="dropdown-item" routerLink="/orders">
+                  <i class="fa fa-list-alt"></i> My Orders
+                </a>
+              </li>
+              <li><hr class="dropdown-divider"></li>
+              <li>
+                <a class="dropdown-item logout-item" (click)="logout()">
+                  <i class="fa fa-sign-out"></i> Logout
+                </a>
+              </li>
+            </ul>
           </li>
         }
       </ul>
