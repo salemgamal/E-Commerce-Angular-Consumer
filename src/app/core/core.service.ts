@@ -28,26 +28,39 @@ export class CoreService {
   logout() {
     // If there's no token, just perform local logout
     if (!this.authService.getToken()) {
-      this.name.next('');
-      this.authService.logout();
-      this.basketService.deleteBasket(); // Clear basket on logout
+      this.clearAllUserData();
       return of(null);
     }
 
     return this.http.post(this.baseURL + 'auth/logout', {}).pipe(
       map(() => {
-        this.name.next('');
-        this.basketService.deleteBasket(); // Clear basket on logout
-        this.authService.logout(); // This will clear the token and redirect
+        this.clearAllUserData();
       }),
       catchError(error => {
         console.error('Logout error:', error);
-        this.name.next('');
-        this.basketService.deleteBasket(); // Clear basket even on error
-        this.authService.logout(); // Still logout even if API call fails
+        this.clearAllUserData();
         return of(null);
       })
     );
+  }
+
+  private clearAllUserData() {
+    // Clear user name
+    this.name.next('');
+    
+    // Clear basket
+    this.basketService.deleteBasket();
+    
+    // Clear auth data
+    this.authService.logout();
+    
+    // Clear any stored favorites or other user data from localStorage
+    if (typeof window !== 'undefined') {
+      // Clear any additional user-related data from localStorage
+      localStorage.removeItem('basketId');
+      localStorage.removeItem('favorites');
+      // Add any other user-related data that needs to be cleared
+    }
   }
 
   getUserName(): Observable<any> {

@@ -18,7 +18,7 @@
             @for (order of orders; track order.id) {
               <tr>
                 <td>#{{order.id}}</td>
-                <td>{{order.createdAt | date:'medium':'UTC'}}</td>
+                <td>{{order.createdAt | date:'medium'}}</td>
                 <td>
                   <div class="order-items">
                     @for (item of order.items; track item.productId) {
